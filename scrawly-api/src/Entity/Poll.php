@@ -6,9 +6,11 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
- * @ApiResource()
+ * @ApiResource(normalizationContext={"groups"={"poll"}})
  * @ORM\Entity(repositoryClass="App\Repository\PollRepository")
  */
 class Poll
@@ -21,26 +23,31 @@ class Poll
     private $id;
 
     /**
+     * @Groups({"poll"})
      * @ORM\Column(type="string", length=255)
      */
     private $title;
 
     /**
+     * @Groups({"poll"})
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
 
     /**
+     * @Groups({"poll"})
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
+     * @Groups({"poll"})
      * @ORM\OneToMany(targetEntity="App\Entity\Person", mappedBy="poll")
      */
     private $person;
 
     /**
+     * @Groups({"poll"})
      * @ORM\OneToMany(targetEntity="App\Entity\Choice", mappedBy="poll")
      */
     private $choices;
