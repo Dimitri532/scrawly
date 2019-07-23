@@ -1,26 +1,32 @@
-import {SCRAWLY_ADD, UPDATE_SLUG} from '../actions/scrawly';
-
+import {UPDATE_SLUG, SCRAWLY_SHOW_SUCCESS, SCRAWLY_CREATE_SUCCESS} from "../actions/scrawly";
+import slugme from "slugme";
 const initialState = {
-   scrawl: {
-       title:"",
-       slug:"Test",
-       choices: [],
-       person:[],
-   }
-};
-
-function scrawlyApp(state = initialState, action){
-    let newScrawl = Object.assign({}, state.scrawl);
-    switch(action.type){
-        case SCRAWLY_ADD:
-            newScrawl.items.push(action.payload);
-            return { scrawl: newScrawl };
+    scrawl: {
+        title:"",
+        slug:"Test",
+        choices:[],
+        person:[]
+    }
+}
+function scrawlyApp (state = initialState, action){
+    switch (action.type){
+        case SCRAWLY_CREATE_SUCCESS:
+            return {
+                ...state,
+                scrawl: action.payload
+            };
         case UPDATE_SLUG:
-            newScrawl.slug = action.payload;
-            return { scrawl: newScrawl };
+            return {
+                ...state,
+                scrawl: { ...state.scrawl, slug: slugme (action.payload) }
+            };
+        case SCRAWLY_SHOW_SUCCESS:
+            return {
+                ...state,
+                scrawl: action.payload
+            };
         default:
             return state;
-    }
-};
-
+    };
+}
 export default scrawlyApp;
