@@ -15,6 +15,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ApiResource(normalizationContext={"groups"={"poll"}})
  * @ApiFilter(SearchFilter::class, properties={"slug": "exact"})
  * @ORM\Entity(repositoryClass="App\Repository\PollRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Poll
 {
@@ -163,4 +164,13 @@ class Poll
 
         return $this;
     }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function PrePersist(){
+        $this->setCreatedAt(new \DateTime());
+    }
 }
+
+
