@@ -13,15 +13,15 @@ class ScrawlEdit extends Component {
     }
 
     render() {
-        const choice = this.state.scrawl.choices;
-        const listChoices = choice.map((choice) =>
-        <li key={choice['@id']}></li>
-        );
+        /*const choice = this.props.scrawl.choices;
+        const ChoiceList = choice.map((choice) =>
+            <li key={choice['@id']} />
+        )*/
         return (
             <div>
                 <h1>{this.props.scrawl.title}</h1>
                 <ul>
-                    {listChoices}
+
                 </ul>
                 <form onSubmit={event => this.handleSubmit(event)}>
                     <input type="date" name="date" value={this.props.scrawl.choices} onChange={event => this.props.updateChoices(event.target.value)}/>
@@ -30,7 +30,7 @@ class ScrawlEdit extends Component {
                         Add
                     </button>
                 </form>
-                <Link to={'/scrawl'}>Create a new Scrawl</Link>
+                <Link to={"/scrawl/" + this.props.slug}>Create a new Scrawl</Link>
             </div>
         );
     }

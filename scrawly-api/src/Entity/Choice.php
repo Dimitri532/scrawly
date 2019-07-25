@@ -33,7 +33,7 @@ class Choice
     private $person;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Poll")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Poll", inversedBy="choices")
      * @ORM\JoinColumn(nullable=false)
      */
     private $poll;

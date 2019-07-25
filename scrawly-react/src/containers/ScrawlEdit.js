@@ -8,6 +8,7 @@ import ScrawlEdit from "../components/ScrawlEdit";
 const mapStateToProps = state => {
     return {
         scrawl: state.scrawly.scrawl,
+        choices: state.scrawly.scrawl.choices,
         poll: state.scrawly.scrawl["@id"]
     }
 };
