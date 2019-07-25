@@ -4,7 +4,8 @@ import {
     SCRAWLY_CREATE_SUCCESS,
     UPDATE_TITLE,
     UPDATE_CHOICES,
-    ADD_CHOICE_SUCCESS
+    ADD_CHOICE_SUCCESS,
+    CREATE_SCRAWL_LOADING
 } from "../actions/scrawly";
 import slugme from "slugme";
 
@@ -15,15 +16,22 @@ const initialState = {
         choices:[
 
         ],
-        person:[]
+        person:[
+
+        ]
     }
 }
 function scrawlyApp (state = initialState, action){
     switch (action.type){
+        case CREATE_SCRAWL_LOADING:
+            return {
+                ...state,
+                createScrawlLoading: true
+            };
         case ADD_CHOICE_SUCCESS:
             return {
                 ...state,
-                scrawl: action.payload
+                choices: action.payload
             };
         case UPDATE_CHOICES:
             return {

@@ -7,8 +7,14 @@ export const UPDATE_TITLE = "UPDATE_TITLE";
 export const UPDATE_CHOICES = "UPDATE_CHOICES";
 export const ADD_CHOICE_SUCCESS = "ADD_CHOICE_SUCCESS";
 export const ADD_CHOICE_ERROR = "ADD_CHOICE_ERROR";
+export const CREATE_SCRAWL_LOADING = "CREATE_SCRAWL_LOADING";
 
-
+export function updateTitle(title) {
+    return {
+        type:   UPDATE_TITLE,
+        payload: title
+    };
+}
 export function updateSlug(slug) {
     return {
         type: UPDATE_SLUG,
@@ -38,8 +44,10 @@ export function scrawlyShowError() {
     return { type: SCRAWLY_SHOW_ERROR };
 }
 
+
 export function scrawlyCreate(scrawl) {
     return dispatch => {
+        dispatch(createScrawlLoading());
         fetch(process.env.REACT_APP_API + '/polls', {
             method: 'POST',
             headers: {
@@ -65,12 +73,8 @@ export function scrawlyCreateSuccess(scrawl) {
 }
 export function scrawlyCreateError() {
 }
-
-export function updateTitle(title) {
-    return {
-        type:   UPDATE_TITLE,
-        payload: title
-    };
+export function createScrawlLoading() {
+    return { type: CREATE_SCRAWL_LOADING }
 }
 
 export function updateChoices(choices) {
@@ -79,19 +83,20 @@ export function updateChoices(choices) {
         payload: choices
     };
 }
-
-export function addChoice(choice) {
+export function addChoice(choices) {
     return dispatch =>{
-        fetch( process.env.REACT_APP_API + 'poll/', {
+        fetch( process.env.REACT_APP_API + '/choices', {
             method: 'POST',
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify(choice)
+            body: JSON.stringify(
+                choices
+            )
         })
             .then(response=>response.json())
             .then(data=>{
-                if (data["hydra:member"]!== "hydra:Error") {
+                if (data["@type"]!== "hydra:Error") {
                     dispatch(addChoiceSuccess(data))
                 }else{
                     dispatch(addChoiceError());
@@ -99,10 +104,10 @@ export function addChoice(choice) {
             })
     }
 }
-export function addChoiceSuccess(choice) {
+export function addChoiceSuccess(choices) {
     return {
         type: ADD_CHOICE_SUCCESS,
-        payload: choice
+        payload: choices
     }
 }
 export function addChoiceError() {

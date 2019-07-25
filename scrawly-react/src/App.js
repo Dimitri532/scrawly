@@ -6,6 +6,7 @@ import Homepage from './containers/Homepage';
 import Scrawl from './containers/Scrawl';
 import ScrawlNew from './containers/ScrawlNew';
 import ScrawlEdit from './containers/ScrawlEdit';
+import 'font-awesome/css/font-awesome.min.css';
 
 function App() {
     return (
